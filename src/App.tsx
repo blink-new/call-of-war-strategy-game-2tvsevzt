@@ -24,7 +24,7 @@ import {
 interface Aircraft {
   id: string
   name: string
-  category: 'military' | 'commercial'
+  category: 'fighter' | 'bomber' | 'transport'
   type: string
   imageUrl: string
   description: string
@@ -36,7 +36,10 @@ interface Aircraft {
     range?: string
     firstFlight?: string
     role?: string
+    armament?: string
+    engine?: string
   }
+  nation: string
 }
 
 interface QuizQuestion {
@@ -45,152 +48,223 @@ interface QuizQuestion {
   correctAnswer: string
 }
 
-// Aircraft database
+// WWII Aircraft database - Historical aircraft from Call of War era
 const aircraftDatabase: Aircraft[] = [
-  // Military Aircraft
+  // Fighter Aircraft
   {
-    id: 'f22',
-    name: 'F-22 Raptor',
-    category: 'military',
+    id: 'spitfire',
+    name: 'Supermarine Spitfire',
+    category: 'fighter',
     type: 'Fighter',
-    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800',
-    description: 'The F-22 Raptor is a fifth-generation, single-seat, twin-engine, all-weather stealth tactical fighter aircraft.',
+    imageUrl: 'https://images.unsplash.com/photo-1635347395277-081ccb430dec?w=800',
+    description: 'The Supermarine Spitfire was a British single-seat fighter aircraft used by the Royal Air Force and many other Allied countries throughout World War II.',
     identificationFeatures: [
-      'Diamond-shaped wings with angular edges',
-      'Twin vertical tails canted outward',
-      'Rectangular air intakes under the fuselage',
-      'Stealth coating gives matte finish',
-      'No external weapons pylons'
+      'Distinctive elliptical wing shape',
+      'Merlin engine with characteristic exhaust stacks',
+      'Retractable landing gear',
+      'Single-seat cockpit with bubble canopy',
+      'RAF roundel markings'
     ],
     specifications: {
-      wingspan: '13.56 m',
+      wingspan: '11.23 m',
+      length: '9.12 m',
+      maxSpeed: '594 km/h',
+      range: '1,827 km',
+      firstFlight: '1936',
+      role: 'Interceptor fighter',
+      armament: '8× .303 machine guns',
+      engine: 'Rolls-Royce Merlin V-12'
+    },
+    nation: 'United Kingdom'
+  },
+  {
+    id: 'p51mustang',
+    name: 'P-51 Mustang',
+    category: 'fighter',
+    type: 'Fighter',
+    imageUrl: 'https://images.unsplash.com/photo-1681999935315-f0b9886c36ec?w=800',
+    description: 'The North American P-51 Mustang was an American long-range fighter that played a crucial role in the European air war.',
+    identificationFeatures: [
+      'Laminar flow wing design',
+      'Distinctive air intake under fuselage',
+      'Four-blade propeller',
+      'Bubble canopy for excellent visibility',
+      'USAAF star-and-bar markings'
+    ],
+    specifications: {
+      wingspan: '11.28 m',
+      length: '9.83 m',
+      maxSpeed: '703 km/h',
+      range: '2,755 km',
+      firstFlight: '1940',
+      role: 'Long-range escort fighter',
+      armament: '6× .50 cal machine guns',
+      engine: 'Packard V-1650 Merlin'
+    },
+    nation: 'United States'
+  },
+  {
+    id: 'bf109',
+    name: 'Messerschmitt Bf 109',
+    category: 'fighter',
+    type: 'Fighter',
+    imageUrl: 'https://images.unsplash.com/photo-1698655180498-1abb92536648?w=800',
+    description: 'The Messerschmitt Bf 109 was a German World War II fighter aircraft and one of the first true modern fighters of the era.',
+    identificationFeatures: [
+      'Angular, narrow fuselage design',
+      'Single main landing gear leg per side',
+      'Distinctive nose-mounted cannon',
+      'Small cockpit with limited visibility',
+      'Luftwaffe cross markings'
+    ],
+    specifications: {
+      wingspan: '9.87 m',
+      length: '8.95 m',
+      maxSpeed: '640 km/h',
+      range: '850 km',
+      firstFlight: '1935',
+      role: 'Interceptor fighter',
+      armament: '1× 20mm cannon, 2× 7.92mm MGs',
+      engine: 'Daimler-Benz DB 605'
+    },
+    nation: 'Germany'
+  },
+  {
+    id: 'zero',
+    name: 'Mitsubishi A6M Zero',
+    category: 'fighter',
+    type: 'Fighter',
+    imageUrl: 'https://images.unsplash.com/photo-1628996796690-8e3d9342668e?w=800',
+    description: 'The Mitsubishi A6M "Zero" was a long-range fighter aircraft operated by the Imperial Japanese Navy Air Service.',
+    identificationFeatures: [
+      'Very long range capabilities',
+      'Lightweight construction',
+      'Fixed landing gear on early models',
+      'Hinomaru (rising sun) markings',
+      'Extremely maneuverable design'
+    ],
+    specifications: {
+      wingspan: '12.0 m',
+      length: '9.06 m',
+      maxSpeed: '533 km/h',
+      range: '3,104 km',
+      firstFlight: '1939',
+      role: 'Carrier-based fighter',
+      armament: '2× 20mm cannons, 2× 7.7mm MGs',
+      engine: 'Nakajima NK1C Sakae'
+    },
+    nation: 'Japan'
+  },
+  // Bomber Aircraft
+  {
+    id: 'b17',
+    name: 'B-17 Flying Fortress',
+    category: 'bomber',
+    type: 'Heavy Bomber',
+    imageUrl: 'https://images.unsplash.com/photo-1732445486279-8c6e9b676388?w=800',
+    description: 'The Boeing B-17 Flying Fortress was an American four-engine heavy bomber used in strategic bombing campaigns.',
+    identificationFeatures: [
+      'Four radial engines on high wings',
+      'Distinctive glass nose section',
+      'Multiple gun turrets for defense',
+      'Large bomb bay in center fuselage',
+      'Twin vertical tail fins'
+    ],
+    specifications: {
+      wingspan: '31.6 m',
+      length: '22.8 m',
+      maxSpeed: '462 km/h',
+      range: '3,200 km',
+      firstFlight: '1935',
+      role: 'Strategic heavy bomber',
+      armament: '13× .50 cal machine guns',
+      engine: '4× Wright R-1820 Cyclone'
+    },
+    nation: 'United States'
+  },
+  {
+    id: 'he111',
+    name: 'Heinkel He 111',
+    category: 'bomber',
+    type: 'Medium Bomber',
+    imageUrl: 'https://images.unsplash.com/photo-1709873582549-79defeb51271?w=800',
+    description: 'The Heinkel He 111 was a German bomber aircraft designed ostensibly as a transport aircraft but primarily used as a medium bomber.',
+    identificationFeatures: [
+      'Twin-engine design with glazed nose',
+      'Distinctive greenhouse-style cockpit',
+      'Elliptical wing planform',
+      'Stepped cockpit profile',
+      'German Balkenkreuz markings'
+    ],
+    specifications: {
+      wingspan: '22.6 m',
+      length: '16.4 m',
+      maxSpeed: '435 km/h',
+      range: '2,300 km',
+      firstFlight: '1935',
+      role: 'Medium bomber',
+      armament: '7× 7.92mm machine guns',
+      engine: '2× Junkers Jumo 211'
+    },
+    nation: 'Germany'
+  },
+  // Transport Aircraft
+  {
+    id: 'c47',
+    name: 'Douglas C-47 Skytrain',
+    category: 'transport',
+    type: 'Transport',
+    imageUrl: 'https://images.unsplash.com/photo-1616266138330-7b2f3a6d5818?w=800',
+    description: 'The Douglas C-47 Skytrain was a transport aircraft that served with distinction in World War II in the European, Pacific, and China-Burma-India theaters.',
+    identificationFeatures: [
+      'Twin-engine monoplane design',
+      'Fixed tricycle landing gear',
+      'Large cargo doors on fuselage side',
+      'Metal construction with riveted skin',
+      'Distinctive engine nacelles'
+    ],
+    specifications: {
+      wingspan: '28.96 m',
+      length: '19.66 m',
+      maxSpeed: '360 km/h',
+      range: '2,414 km',
+      firstFlight: '1935',
+      role: 'Military transport',
+      armament: 'None (transport role)',
+      engine: '2× Pratt & Whitney R-1830'
+    },
+    nation: 'United States'
+  },
+  {
+    id: 'ju52',
+    name: 'Junkers Ju 52',
+    category: 'transport',
+    type: 'Transport',
+    imageUrl: 'https://images.unsplash.com/photo-1651119295972-b4f733e69713?w=800',
+    description: 'The Junkers Ju 52 was a German transport aircraft that served as both a civilian airliner and military transport.',
+    identificationFeatures: [
+      'Tri-motor configuration',
+      'Corrugated metal construction',
+      'Fixed landing gear with spats',
+      'High-wing monoplane design',
+      'Distinctive boxy fuselage shape'
+    ],
+    specifications: {
+      wingspan: '29.25 m',
       length: '18.90 m',
-      maxSpeed: 'Mach 2.25',
-      range: '2,960 km',
-      firstFlight: '1997',
-      role: 'Air superiority fighter'
-    }
-  },
-  {
-    id: 'a10',
-    name: 'A-10 Thunderbolt II',
-    category: 'military',
-    type: 'Attack Aircraft',
-    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800',
-    description: 'The A-10 Thunderbolt II is a single-seat, twin-engine, straight-wing jet aircraft designed for close air support.',
-    identificationFeatures: [
-      'Straight, unswept wings mounted high on fuselage',
-      'Twin engines mounted above rear fuselage',
-      'Large, prominent nose-mounted 30mm cannon',
-      'Distinctive "bathtub" titanium cockpit',
-      'Multiple external hardpoints for weapons'
-    ],
-    specifications: {
-      wingspan: '17.53 m',
-      length: '16.26 m',
-      maxSpeed: '706 km/h',
-      range: '4,150 km',
-      firstFlight: '1972',
-      role: 'Close air support'
-    }
-  },
-  {
-    id: 'b2',
-    name: 'B-2 Spirit',
-    category: 'military',
-    type: 'Bomber',
-    imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800',
-    description: 'The B-2 Spirit is a multi-role stealth bomber capable of deploying both conventional and nuclear weapons.',
-    identificationFeatures: [
-      'Flying wing design with no vertical tail',
-      'Distinctive sawtooth trailing edge',
-      'Dark gray stealth coating',
-      'Four engines embedded in the wing',
-      'Triangular exhaust nozzles'
-    ],
-    specifications: {
-      wingspan: '52.4 m',
-      length: '21.0 m',
-      maxSpeed: 'Mach 0.95',
-      range: '11,100 km',
-      firstFlight: '1989',
-      role: 'Strategic stealth bomber'
-    }
-  },
-  // Commercial Aircraft
-  {
-    id: 'boeing747',
-    name: 'Boeing 747',
-    category: 'commercial',
-    type: 'Wide-body Airliner',
-    imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800',
-    description: 'The Boeing 747 is a large, long-range wide-body airliner and cargo aircraft, often referred to as the "Queen of the Skies".',
-    identificationFeatures: [
-      'Distinctive upper deck "hump" behind cockpit',
-      'Four engines mounted under swept wings',
-      'Very large size compared to other aircraft',
-      'Prominent nose gear with multiple wheels',
-      'High wing position relative to fuselage'
-    ],
-    specifications: {
-      wingspan: '64.4 m',
-      length: '70.6 m',
-      maxSpeed: '988 km/h',
-      range: '14,200 km',
-      firstFlight: '1969',
-      role: 'Long-haul passenger/cargo transport'
-    }
-  },
-  {
-    id: 'a380',
-    name: 'Airbus A380',
-    category: 'commercial',
-    type: 'Wide-body Airliner',
-    imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800',
-    description: 'The Airbus A380 is the world\'s largest passenger airliner, a wide-body aircraft with a full-length double deck.',
-    identificationFeatures: [
-      'Full-length double deck throughout entire fuselage',
-      'Four engines with very large fan diameter',
-      'Massive size - largest passenger aircraft',
-      'Distinctive curved upper deck windows',
-      'Very wide fuselage cross-section'
-    ],
-    specifications: {
-      wingspan: '79.8 m',
-      length: '72.7 m',
-      maxSpeed: '945 km/h',
-      range: '15,200 km',
-      firstFlight: '2005',
-      role: 'Ultra-long-haul passenger transport'
-    }
-  },
-  {
-    id: 'boeing737',
-    name: 'Boeing 737',
-    category: 'commercial',
-    type: 'Narrow-body Airliner',
-    imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800',
-    description: 'The Boeing 737 is a narrow-body aircraft and one of the most popular commercial airliners in the world.',
-    identificationFeatures: [
-      'Low-mounted wings close to ground',
-      'Two engines mounted under wings',
-      'Relatively small, narrow fuselage',
-      'Pointed nose with small cockpit windows',
-      'Simple, straight wing design'
-    ],
-    specifications: {
-      wingspan: '35.8 m',
-      length: '39.5 m',
-      maxSpeed: '876 km/h',
-      range: '6,570 km',
-      firstFlight: '1967',
-      role: 'Short to medium-haul passenger transport'
-    }
+      maxSpeed: '290 km/h',
+      range: '1,305 km',
+      firstFlight: '1930',
+      role: 'Transport and paratrooper carrier',
+      armament: '1× 7.92mm machine gun',
+      engine: '3× BMW 132 radial'
+    },
+    nation: 'Germany'
   }
 ]
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'military' | 'commercial'>('military')
+  const [activeTab, setActiveTab] = useState<'fighter' | 'bomber' | 'transport'>('fighter')
   const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<string>('')
   const [showResult, setShowResult] = useState(false)
@@ -200,7 +274,7 @@ function App() {
   const [showExplanation, setShowExplanation] = useState(false)
 
   // Generate a new question
-  const generateQuestion = (category: 'military' | 'commercial') => {
+  const generateQuestion = (category: 'fighter' | 'bomber' | 'transport') => {
     const categoryAircraft = aircraftDatabase.filter(a => a.category === category)
     const correctAircraft = categoryAircraft[Math.floor(Math.random() * categoryAircraft.length)]
     
@@ -264,6 +338,24 @@ function App() {
 
   const accuracyRate = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0
 
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'fighter': return 'bg-red-600'
+      case 'bomber': return 'bg-orange-600'
+      case 'transport': return 'bg-blue-600'
+      default: return 'bg-gray-600'
+    }
+  }
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'fighter': return <Target className="w-4 h-4" />
+      case 'bomber': return <Plane className="w-4 h-4" />
+      case 'transport': return <Shield className="w-4 h-4" />
+      default: return <Plane className="w-4 h-4" />
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       {/* Header */}
@@ -275,8 +367,8 @@ function App() {
                 <Plane className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-white">Aircraft Identification Quiz</h1>
-                <p className="text-slate-300">Test your knowledge of military and commercial aircraft</p>
+                <h1 className="text-3xl font-bold text-white">Call of War - Aircraft Recognition</h1>
+                <p className="text-slate-300">Master the aircraft of World War II</p>
               </div>
             </div>
             
@@ -299,15 +391,19 @@ function App() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-8">
-        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'military' | 'commercial')}>
-          <TabsList className="grid w-full grid-cols-2 mb-8 bg-slate-800 border-slate-700">
-            <TabsTrigger value="military" className="flex items-center space-x-2 data-[state=active]:bg-red-600">
-              <Shield className="w-4 h-4" />
-              <span>Military Aircraft</span>
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'fighter' | 'bomber' | 'transport')}>
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-slate-800 border-slate-700">
+            <TabsTrigger value="fighter" className="flex items-center space-x-2 data-[state=active]:bg-red-600">
+              <Target className="w-4 h-4" />
+              <span>Fighters</span>
             </TabsTrigger>
-            <TabsTrigger value="commercial" className="flex items-center space-x-2 data-[state=active]:bg-blue-600">
+            <TabsTrigger value="bomber" className="flex items-center space-x-2 data-[state=active]:bg-orange-600">
               <Plane className="w-4 h-4" />
-              <span>Commercial Aircraft</span>
+              <span>Bombers</span>
+            </TabsTrigger>
+            <TabsTrigger value="transport" className="flex items-center space-x-2 data-[state=active]:bg-blue-600">
+              <Shield className="w-4 h-4" />
+              <span>Transport</span>
             </TabsTrigger>
           </TabsList>
 
@@ -319,9 +415,15 @@ function App() {
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between text-white">
                       <span>Identify this Aircraft</span>
-                      <Badge variant={activeTab === 'military' ? 'destructive' : 'default'}>
-                        {activeTab === 'military' ? 'Military' : 'Commercial'}
-                      </Badge>
+                      <div className="flex items-center space-x-2">
+                        <Badge className={`${getCategoryColor(activeTab)} text-white`}>
+                          {getCategoryIcon(activeTab)}
+                          <span className="ml-1 capitalize">{activeTab}</span>
+                        </Badge>
+                        <Badge variant="outline" className="text-white border-slate-600">
+                          {currentQuestion.aircraft.nation}
+                        </Badge>
+                      </div>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
@@ -333,6 +435,9 @@ function App() {
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                      <div className="absolute bottom-4 left-4 text-white text-sm bg-black/50 px-2 py-1 rounded">
+                        WWII Era - {currentQuestion.aircraft.specifications.firstFlight}
+                      </div>
                     </div>
 
                     {/* Answer Options */}
@@ -345,14 +450,14 @@ function App() {
                             variant={selectedAnswer === option ? "default" : "outline"}
                             className={`justify-start h-12 ${
                               selectedAnswer === option 
-                                ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                                ? `${getCategoryColor(activeTab)} hover:opacity-90 text-white` 
                                 : 'bg-slate-700 hover:bg-slate-600 text-white border-slate-600'
                             }`}
                             onClick={() => setSelectedAnswer(option)}
                             disabled={showResult}
                           >
-                            <Target className="w-4 h-4 mr-2" />
-                            {option}
+                            {getCategoryIcon(activeTab)}
+                            <span className="ml-2">{option}</span>
                           </Button>
                         ))}
                       </div>
@@ -384,11 +489,14 @@ function App() {
                                 <XCircle className="w-5 h-5 text-red-400" />
                               )}
                               <span className="font-semibold">
-                                {isCorrect ? 'Correct!' : 'Incorrect'}
+                                {isCorrect ? 'Excellent!' : 'Not quite right'}
                               </span>
                             </div>
                             <p className="mt-2">
                               The correct answer is: <strong>{currentQuestion.correctAnswer}</strong>
+                            </p>
+                            <p className="text-sm mt-1 opacity-90">
+                              A {currentQuestion.aircraft.nation} {currentQuestion.aircraft.type.toLowerCase()} from {currentQuestion.aircraft.specifications.firstFlight}
                             </p>
                           </div>
 
@@ -396,10 +504,10 @@ function App() {
                           <div className="flex space-x-3">
                             <Button
                               onClick={nextQuestion}
-                              className="flex-1 h-12 bg-blue-600 hover:bg-blue-700"
+                              className={`flex-1 h-12 ${getCategoryColor(activeTab)} hover:opacity-90`}
                             >
                               <Zap className="w-4 h-4 mr-2" />
-                              Next Question
+                              Next Aircraft
                             </Button>
                             <Button
                               onClick={() => setShowExplanation(!showExplanation)}
@@ -407,7 +515,7 @@ function App() {
                               className="h-12 bg-slate-700 hover:bg-slate-600 text-white border-slate-600"
                             >
                               <BookOpen className="w-4 h-4 mr-2" />
-                              Learn More
+                              Details
                             </Button>
                           </div>
                         </div>
@@ -423,14 +531,14 @@ function App() {
                     <CardHeader>
                       <CardTitle className="flex items-center text-white">
                         <Trophy className="w-5 h-5 mr-2 text-yellow-400" />
-                        Your Progress
+                        Mission Progress
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="grid grid-cols-3 gap-4">
                         <div className="text-center">
                           <div className="text-2xl font-bold text-blue-400">{score.correct}</div>
-                          <div className="text-xs text-slate-400">Correct</div>
+                          <div className="text-xs text-slate-400">Identified</div>
                         </div>
                         <div className="text-center">
                           <div className="text-2xl font-bold text-slate-300">{score.total}</div>
@@ -438,13 +546,13 @@ function App() {
                         </div>
                         <div className="text-center">
                           <div className="text-2xl font-bold text-orange-400">{streak}</div>
-                          <div className="text-xs text-slate-400">Streak</div>
+                          <div className="text-xs text-slate-400">Best Streak</div>
                         </div>
                       </div>
                       
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-slate-300">Accuracy Rate</span>
+                          <span className="text-slate-300">Recognition Rate</span>
                           <span className="text-white font-medium">{accuracyRate}%</span>
                         </div>
                         <Progress value={accuracyRate} className="h-2" />
@@ -456,18 +564,18 @@ function App() {
                         className="w-full mt-4 bg-slate-700 hover:bg-slate-600 text-white border-slate-600"
                       >
                         <RotateCcw className="w-4 h-4 mr-2" />
-                        Reset Quiz
+                        Reset Mission
                       </Button>
                     </CardContent>
                   </Card>
 
-                  {/* Aircraft Details (shown after answer) */}
+                  {/* Aircraft Intelligence (shown after answer) */}
                   {showResult && showExplanation && currentQuestion && (
                     <Card className="bg-slate-800/50 border-slate-700">
                       <CardHeader>
                         <CardTitle className="flex items-center text-white">
                           <Brain className="w-5 h-5 mr-2 text-purple-400" />
-                          Aircraft Details: {currentQuestion.aircraft.name}
+                          Aircraft Intelligence: {currentQuestion.aircraft.name}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
@@ -476,7 +584,10 @@ function App() {
                         </p>
 
                         <div>
-                          <h4 className="text-white font-semibold mb-2">Key Identification Features:</h4>
+                          <h4 className="text-white font-semibold mb-2 flex items-center">
+                            <Target className="w-4 h-4 mr-2 text-yellow-400" />
+                            Key Recognition Features:
+                          </h4>
                           <ul className="space-y-1">
                             {currentQuestion.aircraft.identificationFeatures.map((feature, index) => (
                               <li key={index} className="text-slate-300 text-sm flex items-start">
@@ -487,28 +598,29 @@ function App() {
                           </ul>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-600">
+                        <div className="grid grid-cols-1 gap-4 pt-4 border-t border-slate-600">
                           <div>
-                            <h5 className="text-white font-medium text-sm">Specifications</h5>
-                            <div className="space-y-1 mt-2">
+                            <h5 className="text-white font-medium text-sm mb-2">Combat Specifications</h5>
+                            <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                               {Object.entries(currentQuestion.aircraft.specifications).map(([key, value]) => (
                                 <div key={key} className="flex justify-between text-xs">
                                   <span className="text-slate-400 capitalize">{key.replace(/([A-Z])/g, ' $1')}:</span>
-                                  <span className="text-slate-300">{value}</span>
+                                  <span className="text-slate-300 font-mono">{value}</span>
                                 </div>
                               ))}
                             </div>
                           </div>
-                          <div className="text-center">
-                            <Badge 
-                              variant={currentQuestion.aircraft.category === 'military' ? 'destructive' : 'default'}
-                              className="mb-2"
-                            >
-                              {currentQuestion.aircraft.type}
-                            </Badge>
-                            <div className="text-xs text-slate-400">
-                              {currentQuestion.aircraft.category === 'military' ? 'Military' : 'Commercial'} Aircraft
-                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-2">
+                          <Badge 
+                            className={`${getCategoryColor(currentQuestion.aircraft.category)} text-white`}
+                          >
+                            {getCategoryIcon(currentQuestion.aircraft.category)}
+                            <span className="ml-1">{currentQuestion.aircraft.type}</span>
+                          </Badge>
+                          <div className="text-xs text-slate-400">
+                            Nation: <span className="text-slate-300 font-medium">{currentQuestion.aircraft.nation}</span>
                           </div>
                         </div>
                       </CardContent>
